@@ -46,5 +46,17 @@ namespace WebApp.Controllers
             var user = UserManager.FindById(User.Identity.GetUserId());
             return new GetViewModel() { Hometown = user.Hometown };
         }
+
+        public GetViewModel Get(int a)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            return new GetViewModel() { Hometown = user.Hometown };
+        }
+
+        public GetViewModel Get(string a)
+        {
+            var user = UserManager.FindById(User.Identity.GetUserId());
+            return new GetViewModel() { Hometown = user.Hometown };
+        }
     }
 }
