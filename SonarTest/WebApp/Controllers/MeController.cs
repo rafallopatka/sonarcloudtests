@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
@@ -26,6 +27,26 @@ namespace WebApp.Controllers
 
         public MeController()
         {
+        }
+
+        public void Test3()
+        {
+            AesManaged aes4 = new AesManaged
+            {
+                KeySize = 128,
+                BlockSize = 128,
+                Mode = CipherMode.ECB, // Noncompliant
+                Padding = PaddingMode.PKCS7
+            };
+
+            RSACryptoServiceProvider RSA1 = new RSACryptoServiceProvider();
+            var encryptedData = RSA1.Encrypt(new byte[50], false); // Noncompliant: OAEP Padding is not used (second parameter set to false)
+
+
+            var dsa1 = new DSACng(); // Compliant - default key size is 2048
+            var dsa2 = new DSACng(2048); // Compliant
+            var rsa1 = new RSACryptoServiceProvider(2048); // Compliant
+            var rsa2 = new RSACng(); // Compliant - default key size is 2048
         }
 
         public RedirectResult Test2()
