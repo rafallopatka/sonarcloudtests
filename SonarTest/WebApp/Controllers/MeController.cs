@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -21,6 +23,14 @@ namespace WebApp.Controllers
 
         public MeController()
         {
+        }
+
+        public void Test(string userName)
+        {
+            var sqlConnection  = new SqlConnection("Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;");
+            var sql = "SELECT * FROM UserAccount WHERE Username = '" + userName + "'";
+            SqlCommand command = new SqlCommand(sql , sqlConnection);
+            SqlDataReader reader = command.ExecuteReader();
         }
 
         public MeController(ApplicationUserManager userManager)
