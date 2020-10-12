@@ -2,27 +2,35 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Owin;
 using WebApp.Models;
+using RedirectResult = System.Web.Http.Results.RedirectResult;
 
 namespace WebApp.Controllers
 {
-    [Authorize]
+    [System.Web.Http.Authorize]
     public class MeController : ApiController
     {
         private ApplicationUserManager _userManager;
 
         public MeController()
         {
+        }
+
+        public RedirectResult Test2()
+        {
+            return Redirect(Request.GetQueryNameValuePairs().First(x => x.Key == "Url").Value);
         }
 
         public void Test(string userName)
